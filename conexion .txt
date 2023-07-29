@@ -1,0 +1,20 @@
+Package to install 
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Pomelo.EntityFrameworkCore.Mysql
+
+
+Install & Update
+dotnet tool install --global dotnet-ef
+dotnet tool update --global dotnet-ef
+
+
+dotnet ef dbcontext scaffold Name=tallerapi Pomelo.EntityFrameworkCore.MySql --output-dir Models --context-dir Data --namespace ConsoleAppAPI.Models --context-namespace ConsoleAppAPI.Data --context ConsoleAppAPIContext -f --no-onconfiguring
+
+
+Program
+
+builder.Services.AddDbContext<ConsoleAppAPIContext>(
+   options=> {
+       options.UseMySql(builder.Configuration.GetConnectionString("tallerapi"),
+           Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.23-mysql"));
+    });
